@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <title>Frontend Mentor | Todo app</title>
+</head>
+
+<body class="sans mx-auto grid place-items-center theme-dark img ">
+  <header class="flex justify-between gap-48 pt-12 pb-5 lg:pt-16 lg:pb-12 lg:gap-[23rem] ">
+    <h1 class="tracking-[5px] lg:tracking-[10px] font-bold text-[1.7em] text-[2em] text-white">TODO</h1>
+    <button id="theme"><img src="images/icon-sun.svg" alt=""></button>
+  </header>
+  <main class="w-[328px] lg:w-[37%]">
+    <div id="addItem" class="newItem flex gap-4 rounded-md bg-[var(--todo-bg)]   px-4 py-3  ">
+      <span
+        class="w-[1.1rem] h-[1.1rem] rounded-full border-solid border-2 border-[var(--border-color)] cursor-pointer">
+      </span>
+      <label for="to-do-inp">
+        <input class="bg-[var(--todo-bg)]  font-sm outline-none  " type="text" name="to-do" id="toDo"
+          placeholder="Create a new todo...">
+      </label>
+    </div>
+    <section class="drop-shadow-lg">
+      <ul id="todos" class="rounded-md content mt-5  bg-[var(--todo-bg)]  shadow-lg">
+      </ul>
+      <div class="invisible-button">
+        <div
+          class=" update-items flex justify-between  rounded-md bg-[var(--todo-bg)] text-[var(--Dark-Grayish-Blue)] py-4 px-3">
+          <button class="items-left  cursor-pointer ">0 items left</button>
+          <button class="clear-completed  cursor-pointer">Clear Completed</button>
+        </div>
+      </div>
+      <div
+        class=" sort font-bold flex justify-center mt-5 rounded-md lg:text-sm bg-[var(--todo-bg)] text-[var(--Dark-Grayish-Blue)]  py-4 gap-6 shadow-md  drop-shadow-lg ">
+        <button class="hide items-left-lg cursor-pointer basis-1/4 text-left ">0 items left</button>
+        <button class="all-list ">All</button>
+        <button class="active-list">Active</button>
+        <button class="completed-list">Completed</button>
+        <button class="hide clear-completed-lg cursor-pointer basis-1/4 text-right">Clear Completed</button>
+      </div>
+    </section>
+
+    <div class="text-center my-8">
+      <p> Drag and drop to reorder list
+      </p>
+    </div>
+  </main>
+  <footer>
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+      Coded by <a href="#">Manju Bhaskar</a>.
+    </div>
+  </footer>
+
+
+  <script src="./javascript.js"></script>
+</body>
+
+</html>
