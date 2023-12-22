@@ -28,7 +28,7 @@
           placeholder="Create a new todo...">
       </label>
     </div>
-    <section class="drop-shadow-lg">
+    <section class="drop-shadow-lg md:relative">
       <ul id="todos" class="rounded-md content mt-5  bg-[var(--todo-bg)]  shadow-lg">
       </ul>
       <div class="invisible-button">
@@ -39,12 +39,10 @@
         </div>
       </div>
       <div
-        class=" sort font-bold flex justify-center mt-5 rounded-md lg:text-sm bg-[var(--todo-bg)] text-[var(--Dark-Grayish-Blue)]  py-4 gap-6 shadow-md  drop-shadow-lg ">
-        <button class="hide items-left-lg cursor-pointer basis-1/4 text-left ">0 items left</button>
+        class=" sort font-bold flex justify-center mt-5 rounded-md lg:text-sm bg-[var(--todo-bg)] text-[var(--Dark-Grayish-Blue)]  py-4 gap-6 drop-shadow-lg md:drop-shadow-none lg:absolute bottom-[2px] left-[28%]">
         <button class="all-list ">All</button>
         <button class="active-list">Active</button>
         <button class="completed-list">Completed</button>
-        <button class="hide clear-completed-lg cursor-pointer basis-1/4 text-right">Clear Completed</button>
       </div>
     </section>
 
@@ -53,6 +51,7 @@
       </p>
     </div>
   </main>
+
   <footer>
     <div class="attribution">
       Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.

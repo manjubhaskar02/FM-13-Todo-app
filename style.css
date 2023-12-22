@@ -142,10 +142,6 @@ body {
     color: var(--Bright-Blue);
 }
 
-.invisible-button {
-    display: none
-}
-
 @media screen and (max-width:1000px) {
     .theme-dark {
         --bg-top-image: url(./images/bg-mobile-dark.jpg) no-repeat;
@@ -159,10 +155,5 @@ body {
         display: none;
         pointer-events: none;
     }
-
-    .invisible-button {
-        display: block;
-    }
-
 
 }

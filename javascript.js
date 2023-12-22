@@ -38,19 +38,17 @@ function changeTheme() {
 
 //TODO ITEMS
 
-function addToDo() {
-    const inputText = toDo.value;
+function addToDo(textValue, isChecked) {
     toDoList.insertAdjacentHTML(
         "beforeend",
         `<li class="list-group cursor-grab " draggable="true" ondragstart = "dragStart(event)"> 
          <label href="checkbox" class="container-box"> 
-         <input type="checkbox" name="todoItem" >  
+         <input type="checkbox" name="todoItem"  >  
            <span class="checked" ></span>
         </label>
-      <span class="list-text basis-5/6 ">${inputText}</span>
+      <span class="list-text basis-5/6 ">${textValue}</span>
       <img class="delete" src="images/icon-cross.svg" alt=""></li>`
     )
-    toDo.value = "";
 
 
     const listItem = toDoList.lastChild;
@@ -70,13 +68,20 @@ function addToDo() {
 
         }
         countUncheckedItems();
+        saveTodoList();
+
     })
+    if (isChecked) {
+        checkbox.click()
+    }
 
     //removeItem
-    const removeItem = listItem.children[2];
+    const removeItem = listItem.lastChild;
     removeItem.addEventListener('click', () => {
         listItem.remove();
         countUncheckedItems();
+        saveTodoList();
+
 
     })
 
@@ -85,17 +90,32 @@ function addToDo() {
         if (checkbox.checked) {
             listItem.remove();
         }
-    })
-    countUncheckedItems();
+        saveTodoList();
 
-    clearCompletedLarge.addEventListener("click", () => {
-        if (checkbox.checked) {
-            listItem.remove();
-        }
     })
+
+    // clearCompletedLarge.addEventListener("click", () => {
+    //     if (checkbox.checked) {
+    //         listItem.remove();
+    //     }
+    //     saveTodoList();
+
+    // })
     countUncheckedItems();
+    saveTodoList();
 
 }
+//enter inputText
+
+toDo.addEventListener('keydown', function (e) {
+    if (e.code === "Enter") {
+        const inputText = toDo.value;
+        addToDo(inputText);
+        toDo.value = "";
+
+    }
+
+})
 
 
 //itemsLeft
@@ -103,13 +123,13 @@ function addToDo() {
 function countUncheckedItems() {
     const uncheckedCheckboxes = toDoList.querySelectorAll('input[type="checkbox"]:not(:checked)')
 
-    if (window.innerWidth <= 500) {
-        itemsLeft.innerHTML = `${uncheckedCheckboxes.length} items left`;
-    }
-    else {
-        itemsLeftLarge.innerHTML = `${uncheckedCheckboxes.length} items left`;
+    // if (window.innerWidth <= 500) {
+    itemsLeft.innerHTML = `${uncheckedCheckboxes.length} items left`;
+    // }
+    // else {
+    //     itemsLeftLarge.innerHTML = `${uncheckedCheckboxes.length} items left`;
 
-    }
+    // }
 }
 
 //sortingList
@@ -156,10 +176,10 @@ completedList.addEventListener('click', () => {
 })
 
 //DragItems
+
 let draggedItem = null;
 
 function dragStart(event) {
-    // console.log(event.target);
     draggedItem = event.target;
 }
 
@@ -185,22 +205,38 @@ function dragDrop(event) {
         toDoList.insertBefore(draggedItem, draggedIndex > droppedIndex ? draggedOverItem : draggedOverItem.nextSibling);
     }
     draggedItem = null;
+    saveTodoList();
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    toDoList.addEventListener('dragover', dragOver);
-    toDoList.addEventListener('dragenter', dragEnter);
-    toDoList.addEventListener('dragleave', dragLeave);
-    toDoList.addEventListener('drop', dragDrop);
-});
+toDoList.addEventListener('dragover', dragOver);
+toDoList.addEventListener('dragenter', dragEnter);
+toDoList.addEventListener('dragleave', dragLeave);
+toDoList.addEventListener('drop', dragDrop);
 
-toDo.addEventListener('keydown', function (e) {
-    if (e.code === "Enter") {
-        addToDo();
-    }
+
+// restoreComponents
+
+function loadTodoList() {
+    const todosData = JSON.parse(localStorage.getItem('todosData'));
+    todosData.forEach((item) => {
+        addToDo(item.name, item.isChecked);
+    })
+}
+
+function saveTodoList() {
+    const todosData = Array.from(toDoList.children).map(listItem => {
+        const checkbox = listItem.querySelector('input[type=checkbox]');
+
+        return {
+            name: listItem.textContent.trim(),
+            isChecked: checkbox.checked
+        }
+    });
+
+    localStorage.setItem('todosData', JSON.stringify(todosData));
+
+}
+document.addEventListener('DOMContentLoaded', function () {
+    loadTodoList();
 
 })
-
-
-
-
